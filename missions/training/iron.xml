@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <About>
+    <Summary>mine iron</Summary>
+  </About>
+
+  <ModSettings>
+    <MsPerTick>10</MsPerTick>
+  </ModSettings>
+
+  <ServerSection>
+    <ServerHandlers>
+      <FlatWorldGenerator generatorString="3;7,8*1,2*3,2;3;,biome_1"/>
+      <DrawingDecorator>
+        <DrawCuboid x1="-18" y1="10" z1="-18" x2="18" y2="10" z2="18" type="grass"/>
+        <DrawCuboid x1="-18" y1="7" z1="-18" x2="18" y2="9" z2="18" type="dirt"/>
+        <DrawCuboid x1="-18" y1="1" z1="-18" x2="18" y2="6" z2="18" type="stone"/>
+        <DrawCuboid x1="-2" y1="5" z1="3" x2="2" y2="6" z2="5" type="iron_ore"/>
+        <DrawCuboid x1="4" y1="3" z1="-4" x2="6" y2="5" z2="-2" type="iron_ore"/>
+      </DrawingDecorator>
+      <ServerQuitFromTimeUp timeLimitMs="300000" description="out_of_time"/>
+      <ServerQuitWhenAnyAgentFinishes/>
+    </ServerHandlers>
+  </ServerSection>
+
+  <AgentSection mode="Survival">
+    <Name>gasdf</Name>
+    <AgentStart>
+      <Placement x="1" y="11" z="1" pitch="0" yaw="0"/>
+      <Inventory>
+        <InventoryItem slot="0" type="stone_pickaxe" quantity="1"/>
+        <InventoryItem slot="1" type="planks" quantity="4"/>
+        <InventoryItem slot="2" type="stick" quantity="2"/>
+        <InventoryItem slot="3" type="torch" quantity="16"/>
+      </Inventory>
+    </AgentStart>
+    <AgentHandlers>
+      <ContinuousMovementCommands/>
+      <InventoryCommands/>
+      <SimpleCraftCommands/>
+      <MissionQuitCommands/>
+      <ObservationFromRay/>
+      <ObservationFromFullStats/>
+      <ObservationFromFullInventory/>
+      <ObservationFromGrid>
+        <Grid name="nearby">
+          <min x="-2" y="-2" z="-2"/>
+          <max x="2" y="2" z="2"/>
+        </Grid>
+      </ObservationFromGrid>
+      <RewardForCollectingItem>
+        <Item reward="400" type="iron_ore"/>
+        <Item reward="800" type="iron_ingot"/>
+        <Item reward="1200" type="iron_pickaxe"/>
+      </RewardForCollectingItem>
+      <RewardForMissionEnd rewardForDeath="-1000">
+        <Reward description="found_goal" reward="1000"/>
+        <Reward description="out_of_time" reward="-250"/>
+      </RewardForMissionEnd>
+      <AgentQuitFromCollectingItem>
+        <Item type="iron_ore" description="found_goal"/>
+      </AgentQuitFromCollectingItem>
+    </AgentHandlers>
+  </AgentSection>
+</Mission>
